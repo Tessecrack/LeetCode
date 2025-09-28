@@ -6,21 +6,21 @@ public class Solution {
 
     private int GetMaxSubStr(string s)
     {
-        var chars = new List<char>();
+        var charsIndexes = new Dictionary<char, int>();
+        int left = 0;
         int maxCounter = 0;
-        for (int i = 0; i < s.Length; ++i)
+        for (int right = 0; right < s.Length; ++right)
         {
-            var ch = s[i];
-            if (chars.Contains(ch))
+            char current = s[right];
+            if (charsIndexes.TryGetValue(current, out int value) && value >= left)
             {
-                maxCounter = Math.Max(chars.Count, maxCounter);
-                chars.RemoveAt(0);
-                i--;
-                continue;
+                left = value + 1;
             }
-            chars.Add(ch);
+
+            charsIndexes[current] = right;
+            maxCounter = Math.Max(maxCounter, right - left + 1);
         }
 
-        return chars.Count > maxCounter ? chars.Count : maxCounter;
+        return maxCounter;
     }
 }
