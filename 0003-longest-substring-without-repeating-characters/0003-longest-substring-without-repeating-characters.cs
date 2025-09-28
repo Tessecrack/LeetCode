@@ -6,24 +6,27 @@ public class Solution {
 
     private int GetMaxSubStr(string s)
     {
-        var chars = new Dictionary<char, int>();
-        int maxCounter = 0;
 
+        var charsIndexes = new Dictionary<char, int>();
+        int maxCounter = 0;
         for (int i = 0; i < s.Length; ++i)
         {
             var ch = s[i];
-
-            if (chars.TryGetValue(ch, out var index))
+            if (charsIndexes.TryGetValue(ch, out var index))
             {
-                if (chars.Count > maxCounter)
+                if (charsIndexes.Count > maxCounter)
                 {
-                    maxCounter = chars.Count;
+                    maxCounter = charsIndexes.Count;
                 }
-                chars = chars.SkipWhile(x => x.Value <= index).ToDictionary();
+                charsIndexes.Clear();
+                i = index;
             }
-            chars[ch] = i;
+            else
+            {
+                charsIndexes[ch] = i;
+            }
         }
 
-        return chars.Count > maxCounter ? chars.Count : maxCounter;
+        return charsIndexes.Count > maxCounter ? charsIndexes.Count : maxCounter;
     }
 }
