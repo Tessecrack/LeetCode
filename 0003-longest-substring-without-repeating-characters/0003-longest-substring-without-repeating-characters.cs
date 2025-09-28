@@ -13,10 +13,7 @@ public class Solution {
             var ch = s[i];
             if (chars.Contains(ch))
             {
-                if (chars.Count > maxCounter)
-                {
-                    maxCounter = chars.Count;
-                }
+                maxCounter = Math.Max(chars.Count, maxCounter);
                 chars.RemoveAt(0);
                 i--;
                 continue;
