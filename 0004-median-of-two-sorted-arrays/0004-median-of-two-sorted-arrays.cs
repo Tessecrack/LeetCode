@@ -1,15 +1,24 @@
 public class Solution {
     public double FindMedianSortedArrays(int[] nums1, int[] nums2)
     {
-        if (nums1.Length == 0)
+        int length = nums1.Length + nums2.Length;
+        int[] mergedArray = new int[length];
+        for (int i = 0, j = 0, k = 0; i < length / 2 + 1; ++i)
         {
-            return GetMedian(nums2);
+            if (k < nums2.Length && (j >= nums1.Length || nums1[j] > nums2[k]))
+            {
+                mergedArray[i] = nums2[k++];
+            }
+            else if (j < nums1.Length && (k >= nums2.Length || nums1[j] < nums2[k]))
+            {
+                mergedArray[i] = nums1[j++];
+            }
+            else if (nums1[j] == nums2[k])
+            {
+                mergedArray[i++] = nums1[j++];
+                mergedArray[i] = nums2[k++];
+            }
         }
-        if (nums2.Length == 0)
-        {
-            return GetMedian(nums1);
-        }
-        var mergedArray = MergeSortedArray(nums1, nums2);
         return GetMedian(mergedArray);
     }
 
@@ -24,41 +33,5 @@ public class Solution {
             var middle = nums.Length / 2;
             return (nums[middle - 1] + (double)nums[middle]) / 2;
         }
-    }
-
-    private int[] MergeSortedArray(int[] nums1, int[] nums2)
-    {
-        int length = nums1.Length + nums2.Length;
-
-        var mergedArray = new int[length];
-        for (int i = 0, nums1Counter = 0, nums2Counter = 0; i < length / 2 + 1; ++i)
-        {
-            if (nums1Counter >= nums1.Length && nums2Counter < nums2.Length)
-            {
-                mergedArray[i] = nums2[nums2Counter++];
-                continue;
-            }
-            else if (nums2Counter >= nums2.Length && nums1Counter < nums1.Length)
-            {
-                mergedArray[i] = nums1[nums1Counter++];
-                continue;
-            }
-
-            if (nums1[nums1Counter] < nums2[nums2Counter])
-            {
-                mergedArray[i] = nums1[nums1Counter++];
-            }
-            else if (nums1[nums1Counter] > nums2[nums2Counter])
-            {
-                mergedArray[i] = nums2[nums2Counter++];
-            }
-            else
-            {
-                mergedArray[i++] = nums1[nums1Counter++];
-                mergedArray[i] = nums2[nums2Counter++];
-            }
-        }
-
-        return mergedArray;
     }
 }
