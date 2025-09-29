@@ -10,7 +10,6 @@ public class Solution {
             return GetMedian(nums1);
         }
         var mergedArray = MergeSortedArray(nums1, nums2);
-        ShowArray(mergedArray);
         return GetMedian(mergedArray);
     }
 
@@ -61,13 +60,5 @@ public class Solution {
         }
 
         return mergedArray;
-    }
-
-    private void ShowArray(int[] arr)
-    {
-        foreach (var el in arr)
-        {
-            Console.Write(el + " ");
-        }
     }
 }
