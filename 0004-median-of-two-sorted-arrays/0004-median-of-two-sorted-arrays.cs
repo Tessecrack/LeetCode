@@ -22,16 +22,9 @@ public class Solution {
         return GetMedian(mergedArray);
     }
 
-    private double GetMedian(int[] nums)
+    private static double GetMedian(int[] nums)
     {
-        if (nums.Length % 2 != 0)
-        {
-            return nums[nums.Length / 2];
-        }
-        else
-        {
-            var middle = nums.Length / 2;
-            return (nums[middle - 1] + (double)nums[middle]) / 2;
-        }
+        var middle = nums.Length / 2;
+        return nums.Length % 2 == 0 ? (nums[middle - 1] + (double)nums[middle]) / 2 : nums[middle];
     }
 }
