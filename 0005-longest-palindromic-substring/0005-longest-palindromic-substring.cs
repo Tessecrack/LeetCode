@@ -2,25 +2,18 @@ public class Solution {
     public string LongestPalindrome(string s)
     {
         // BAD SOLUTION
-
-        var buffer = new StringBuilder();
         var result = string.Empty;
-
         for (int i = 0; i < s.Length; ++i)
         {
             for (int j = i; j < s.Length; ++j)
             {
-                buffer.Append(s[j]);
-                var strBuf = buffer.ToString();
-
+                var strBuf = s.Substring(i, j - i + 1);
                 if (IsPalindrome(strBuf) && strBuf.Length > result.Length)
                 {
                     result = strBuf;
                 }
             }
-            buffer.Clear();
         }
-
         return result;
     }
 
