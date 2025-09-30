@@ -7,27 +7,31 @@ public class Solution {
         {
             for (int j = i; j < s.Length; ++j)
             {
-                var strBuf = s.Substring(i, j - i + 1);
-                if (IsPalindrome(strBuf) && strBuf.Length > result.Length)
+                if (IsPalindrome(s, i, j - i + 1))
                 {
-                    result = strBuf;
+                    var strBuf = s.Substring(i, j - i + 1);
+                    if (strBuf.Length > result.Length)
+                    {
+                        result = strBuf;
+                    }
                 }
             }
         }
         return result;
     }
 
-    private bool IsPalindrome(string s)
+    private bool IsPalindrome(string s, int start, int length)
     {
-        for (int i = 0; i < s.Length / 2; ++i)
+        for (int i = 0; i < length / 2; ++i)
         {
-            var beginIndex = i;
-            var endIndex = s.Length - i - 1;
-            if (s[beginIndex] != s[endIndex])
+            char beginChar = s[i + start];
+            char endChar = s[start + length - i - 1];
+            if (beginChar != endChar)
             {
                 return false;
             }
         }
+
         return true;
     }
 }
